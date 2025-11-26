@@ -8,3 +8,5 @@ tsconfig.json
 /.idea/
 /dbwebform/static/
 /node_modules/
+/archive/
+*.pyc
