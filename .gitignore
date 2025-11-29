@@ -1,12 +1,10 @@
 /dbwebform/__pycache__/
-data.db
-main.py
-package.json
-package-lock.json
-tsconfig.json
 /venv/
 /.idea/
 /dbwebform/static/
 /node_modules/
 /archive/
 *.pyc
+.env
+config.json
+/test/
