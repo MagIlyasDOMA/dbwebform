@@ -5,18 +5,28 @@ from flask import Flask, request, render_template, redirect, url_for
 
 class App(Flask):
     def __init__(self, *args, port: int = 8000, model_class, form_class, **kwargs):
-        folder = Path(__file__).parent.absolute()
-        super().__init__(*args, **kwargs, template_folder=folder / 'templates', static_folder=folder / 'static')
+        self._init_kwargs(kwargs)
+        super().__init__(*args, **kwargs)
         self.port = port
         self.ModelClass = model_class
         self.FormClass = form_class
         self.index = self.route('/')(self.index)
+        self.title = kwargs.get('title', "Создание нового объекта")
+        self.index_template = kwargs.get('index_template', 'index.html')
+
+    @staticmethod
+    def _init_kwargs(kwargs):
+        folder = Path(__file__).parent.absolute()
+        if 'template_folder' not in kwargs:
+            kwargs['template_folder'] = str(folder / 'templates')
+        if 'static_folder' not in kwargs:
+            kwargs['static_folder'] = str(folder / 'static')
 
     def index(self):
         form = self.FormClass()
         if form.validate_on_submit():
             print(form.data)
-        return render_template('index.html', form=form)
+        return render_template(self.index_template, form=form, title=self.title)
 
     def run(self, *args, **kwargs):
         if 'port' in kwargs:
