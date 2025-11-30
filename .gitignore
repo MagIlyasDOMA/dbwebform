@@ -1,10 +1,10 @@
 /dbwebform/__pycache__/
 /venv/
 /.idea/
-/dbwebform/static/
 /node_modules/
 /archive/
 *.pyc
 .env
 config.json
 /test/
+tree.txt
