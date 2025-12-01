@@ -27,6 +27,12 @@ class App(MultiTemplateAndStaticMixin, Flask):
         self.model_fields = model_fields
         self.notification_text = notification_text
         self.index = self.route('/', methods=['GET', 'POST'])(self.index)
+        self._init_db()
+
+    def _init_db(self):
+        self.db.init_app(self)
+        with self.app_context():
+            self.db.create_all()
 
     @staticmethod
     def _init_kwargs(kwargs):
@@ -38,6 +44,8 @@ class App(MultiTemplateAndStaticMixin, Flask):
 
     def _get_form_model_data(self, form) -> dict:
         data = dict()
+        if self.model_fields is None:
+            return form.data
         for key, value in form.data.items():
             if key in self.model_fields:
                 data[key] = value

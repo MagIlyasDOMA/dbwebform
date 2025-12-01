@@ -8,3 +8,6 @@
 config.json
 /test/
 tree.txt
+ts_compile.ps1
+ts_compile.py
+*.ts
