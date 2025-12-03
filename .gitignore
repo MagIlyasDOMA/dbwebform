@@ -14,4 +14,6 @@ ts_compile.py
 *.ts
 !*.d.ts
 test.html
-
+/dbwebform.egg-info/
+/dist/
+/build/
