@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
-from typing import Union, Optional, Iterable
-from flask import Flask, request, render_template, redirect, url_for
+from typing import Optional, Iterable
+from flask import Flask, request, render_template, send_file
 from hrenpack.framework.flask.mixins import MultiTemplateAndStaticMixin
 
 
@@ -27,6 +27,7 @@ class App(MultiTemplateAndStaticMixin, Flask):
         self.model_fields = model_fields
         self.notification_text = notification_text
         self.index = self.route('/', methods=['GET', 'POST'])(self.index)
+        self.favicon = self.route('/favicon.ico')(self.favicon)
         self._init_db(database_url)
 
     def _init_db(self, database_url: str = 'sqlite:///db.sqlite3'):
@@ -65,6 +66,12 @@ class App(MultiTemplateAndStaticMixin, Flask):
                 self._create_new_object(form)
         return render_template(self.index_template, form=form, title=self.title,
                                notification_text=self.notification_text)
+
+    @staticmethod
+    def favicon():
+        # Используется иконка с https://icon8.ru
+        # Ссылка на конкретную иконку: https://icons8.ru/icon/Wy3XKG1CjyKf/database
+        return send_file(Path(__file__).parent.absolute() / 'favicon.ico', mimetype='image/x-icon')
 
     def run(self, *args, **kwargs):
         if 'port' in kwargs:

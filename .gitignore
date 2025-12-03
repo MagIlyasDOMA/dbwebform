@@ -12,4 +12,6 @@ tree.txt
 ts_compile.ps1
 ts_compile.py
 *.ts
+!*.d.ts
 test.html
+
