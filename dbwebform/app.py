@@ -1,7 +1,8 @@
+import os
 from pathlib import Path
 from typing import Union, Optional, Iterable
 from flask import Flask, request, render_template, redirect, url_for
-from .mixins import MultiTemplateAndStaticMixin
+from hrenpack.framework.flask.mixins import MultiTemplateAndStaticMixin
 
 
 class App(MultiTemplateAndStaticMixin, Flask):
@@ -21,15 +22,15 @@ class App(MultiTemplateAndStaticMixin, Flask):
         self.db = db
         self.ModelClass = model_class
         self.FormClass = form_class
-        self.config['SQLALCHEMY_DATABASE_URI'] = database_url
         self.title = title
         self.index_template = index_template
         self.model_fields = model_fields
         self.notification_text = notification_text
         self.index = self.route('/', methods=['GET', 'POST'])(self.index)
-        self._init_db()
+        self._init_db(database_url)
 
-    def _init_db(self):
+    def _init_db(self, database_url: str = 'sqlite:///db.sqlite3'):
+        self.config['SQLALCHEMY_DATABASE_URI'] = database_url
         self.db.init_app(self)
         with self.app_context():
             self.db.create_all()
@@ -59,8 +60,9 @@ class App(MultiTemplateAndStaticMixin, Flask):
 
     def index(self):
         form = self.FormClass()
-        if form.validate_on_submit():
-            self._create_new_object(form)
+        if request.method == 'POST':
+            if form.validate_on_submit():
+                self._create_new_object(form)
         return render_template(self.index_template, form=form, title=self.title,
                                notification_text=self.notification_text)
 

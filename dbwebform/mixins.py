@@ -2,6 +2,7 @@ import os
 from markupsafe import Markup
 from flask import send_from_directory, Blueprint
 from jinja2 import ChoiceLoader, FileSystemLoader
+from wtforms import BooleanField
 from .typings import PathLike
 
 
@@ -17,13 +18,10 @@ class DjangoStyleFormMixin:
                 html.append(str(field))
             else:
                 # Основной field
-                field_html = []
+                field_html = [str(field.label), f'\t{field}']
 
-                # Label
-                field_html.append(f'{field.label}')
-
-                # Input field
-                field_html.append(str(field))
+                if field.type in ['BooleanField']:
+                    field_html.reverse()
 
                 # Help text
                 if hasattr(field, 'help_text') and field.help_text:
@@ -37,9 +35,9 @@ class DjangoStyleFormMixin:
                     error_html.append('</ul>')
                     field_html.append(''.join(error_html))
 
-                html.append(f'<p>{" ".join(field_html)}</p>')
+                html.append(f'<p>\n\t{"\n".join(field_html)}\n</p>')
 
-        return Markup(''.join(html))
+        return Markup('\n'.join(html))
 
 
 class MultiTemplateAndStaticMixin:

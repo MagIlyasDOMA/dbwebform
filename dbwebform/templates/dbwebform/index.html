@@ -1,7 +1,5 @@
 {% extends 'dbwebform/base.html' %}
 
-{% block extra_links %}{% block index_links %}{% endblock %}{% endblock %}
-
 {% block content %}
     {% block index_pre_content %}{% endblock %}
 	<form method="post" class="form">
@@ -9,9 +7,4 @@
         <button class="btn btn-hren" type="submit">Подтвердить</button>
     </form>
     {% block index_post_content %}{% endblock %}
-{% endblock %}
-
-{% block extra_scripts %}
-	<script src="/static/dbwebform/script.js"></script>
-    {% block index_scripts %}{% endblock %}
 {% endblock %}

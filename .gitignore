@@ -1,4 +1,5 @@
 /dbwebform/__pycache__/
+/dbwebform/static/dbwebform/tsconfig.json
 /venv/
 /.idea/
 /node_modules/
@@ -11,3 +12,4 @@ tree.txt
 ts_compile.ps1
 ts_compile.py
 *.ts
+test.html
