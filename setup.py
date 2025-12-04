@@ -9,7 +9,7 @@ BASE_URL = "https://github.com/MagIlyasDOMA/dbwebform"
 
 setup(
     name="dbwebform",
-    version='1.0.0',
+    version='1.0.1',
     description="Flask-based web forms for database models with auto-generated forms and admin interface",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -34,10 +34,10 @@ setup(
         "flask-wtf>=1.2.2,<2.0.0",
         "wtforms>=3.2.1,<4.0.0",
         "hrenpack>=2.2.2,<=3.0.0",
-        "db-model-generator>=1.4.2,<2.0.0",
+        "db-model-generator>=1.5.1,<=2.0.0",
     ],
     classifiers=[
-        "Development Status :: 4 - Beta",
+        "Development Status :: 5 - Production/Stable",
         "Environment :: Web Environment",
         "Framework :: Flask",
         "Intended Audience :: Developers",

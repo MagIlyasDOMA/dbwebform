@@ -13,7 +13,8 @@ pip install dbwebform
 Используйте `db-model-generator` для автоматической генерации модели и формы:
 
 ```shell
-db-model-generator sqlite:///example.db users orm.py -r
+# Рекомендуемые параметры db-model-generator
+db-model-generator sqlite:///example.db users orm.py https://magilyasdoma.github.io/dbwebform/recommended-config.json -a
 ```
 
 ### 2. Создание приложения
@@ -155,7 +156,7 @@ sqlalchemy==2.0.44
 flask-sqlalchemy==3.1.1
 flask-wtf==1.2.2
 wtforms==3.2.1
-db-model-generator==1.4.2
+db-model-generator>=1.5.1, <=2.0.0
 hrenpack>=2.2.2, <=3.0.0
 ```
 
